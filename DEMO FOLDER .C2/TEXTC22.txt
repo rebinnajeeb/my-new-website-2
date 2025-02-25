@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RVMD</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    /* Apply the gradient to the entire body */
+    body.dark-theme {
+      background: linear-gradient(to bottom, 
+        #000000, 
+        #000000 20%, /* Black stays for 20% of the height */
+        #004d00 50%, /* Green starts at 20% and peaks at 50% */
+        #000000 80%, /* Black starts fading back at 50% and fully returns at 80% */
+        #000000);
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Remove all section backgrounds, borders, and shadows */
+    .counter-section,
+    .why-choose-us,
+    .youtube-videos,
+    .testimonial-section,
+    .location-section,
+    .footer {
+      background: transparent; /* Remove individual section backgrounds */
+      padding: 50px 0;
+      color: #ffffff;
+      border: none; /* Remove borders */
+      box-shadow: none; /* Remove shadows */
+      margin: 0; /* Remove margins between sections */
+    }
+
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1px 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      transition: background-color 0.3s ease-in-out;
+    }
+    body {
+      padding-top: 105px;
+
+    }
+    /* Add padding to the carousel section to account for the fixed header */
+    .carousel-section {
+      padding-top: 105px; /* Adjust this value to match the height of your header */
+    }
+
+    .navbar-brand {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffffff !important;
+    }
+
+    .nav-link {
+      color: #ffffff !important;
+      margin-left: 20px;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .nav-link:hover {
+      color: #00ff00 !important;
+    }
+
+    /* Background Image */
+    .carousel-item {
+      position: relative;
+      text-align: center;
+      width: 100%;
+      height: 100%;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: 100%;  /* Ensures full height on all screens */
+      object-fit: cover;  /* Ensures images don't get distorted */
+      filter: brightness(0.5);
+    }
+    .carousel-item img {
+      width: 100%; /* Ensures the image takes full width of the container */
+      height: auto; /* Maintains the aspect ratio */
+      object-fit: cover; /* Ensures images don't stretch */
+      max-height: 500px; /* Set a fixed max height */
+      border-radius: 40px;
+    }
+
+    /* Centering and Responsive Text */
+    .carousel-caption {
+      position: absolute;
+      top: 65%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      width: 80%;
+      padding: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      .carousel-caption {
+        top: 48%;
+        font-size: 1.8rem;
+      }
+    }
+    @media (max-width: 768px) {
+      .carousel-caption {
+        top: 49%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .carousel-caption {
+        top: 44%;
+      }
+    }
+    #loc {
+      color: limegreen;
+    }
+    #say {
+      color: limegreen;
+    }
+
+    .carousel-caption h1 {
+      font-size: clamp(24px, 5vw, 48px);
+      font-weight: bold;
+      color: #00ff00;
+      margin-bottom: 10px;
+    }
+
+    .carousel-caption p {
+      font-size: clamp(14px, 2.5vw, 24px);
+      color: #ffffff;
+    }
+
+
+    /* Counter Section */
+    .counter {
+      font-size: 2rem;
+      
+      color: #ffffff;
+    }
+
+    .counter-section p {
+      font-size: 1.2rem;
+      color: #cccccc;
+    }
+
+    .counter-icon {
+      font-size: 2rem;
+      color: #00ff00;
+      margin-bottom: 10px;
+    }
+
+    /* Why Choose Us Section */
+    .why-choose-us h2 {
+      color: #00ff00;
+    }
+
+    .why-choose-us p {
+      font-size: 18px;
+      max-width: 800px;
+      margin: 0 auto 30px;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    .why-choose-list {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+      display: inline-block;
+      margin-top: 18px;
+    }
+    /* Center the List Wrapper */
+    .row.justify-content-center {
+      text-align: center; /* Centers inline-block content */
+    }
+
+
+    .why-choose-list li {
+      font-size: 20px;
+      color: #ffffff;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px;
+      border-radius: 8px;
+      transition: background 0.3s ease-in-out;
+      margin-top: 15px;
+    }
+
+    .why-choose-list li:hover {
+      background: rgba(0, 255, 0, 0.3);
+    }
+
+    .why-choose-list li .tick {
+      font-size: 22px;
+      color: #00ff00;
+    }
+
+    /* Services Section */
+    .services {
+      padding: 60px 20px;
+      background-color: ;
+      text-align: center;
+      animation: fadeInUp 1.5s ease-in-out;
+    }
+
+    .services h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+    }
+
+    .service-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .service-card {
+      background-color: lightskyblue;
+      padding: 20px;
+      border-radius: 10px;
+      width: 250px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .service-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #ff6f61; /* Coral accent */
+    }
+
+    .service-card p {
+      color: #666666; /* Light gray text */
+    }
+
+
+    /* Testimonials Section */
+    .testimonial-item {
+      background: rgba(0, 77, 0, 0.3);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 10px;
+      transition: 0.5s ease-in-out;
+      margin-bottom: 80px;
+    }
+
+    .testimonial-item:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+    }
+
+    .testimonial-item p {
+      font-style: italic;
+      color: #ffffff;
+      transition: 0.5s ease-in-out;
+    }
+
+    .testimonial-item p.fw-bold {
+      color: #00ff00;
+      margin-top: 10px;
+    }
+
+    /* Location Section */
+    .location-section iframe {
+      border: 3px solid #00ff00;
+      border-radius: 10px;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: transparent; /* Make footer transparent */
+      padding: 20px 0;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .footer a:hover {
+      color: #00ff00;
+    }
+
+    .navbar-brand img {
+      height: 30px !important;
+      width: auto !important;
+    }
+
+
+
+
+  </style>
+</head>
+<body class="dark-theme">
+
+  <!-- Header Section -->
+  <header class="header" id="home">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#" style="display: flex; flex-direction: column; align-items: start;">
+          <img src="logo.jpg" alt="Logo" style="height: 30px; width: auto; margin-right: 6px;">
+          <span>RVMD</span>
+          <small style="font-size: 12px; color: #ccc; line-height: 1;">Since 2011</small>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+            <li class="nav-item"><a class="nav-link" href="products.html">Products and Services</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Carousel Section -->
+  <section class="carousel-section">
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="sm8.jpg" class="d-block w-100" alt="Background 1">
+        </div>
+        <div class="carousel-item">
+          <img src="sm99.jpg" class="d-block w-100" alt="Background 2">
+        </div>
+        <div class="carousel-item">
+          <img src="sm7.webp" class="d-block w-100" alt="Background 3">
+        </div>
+      </div>
+
+      <!-- Carousel Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      </button>
+
+      <!-- Carousel Indicators -->
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2"></button>
+      </div>
+    </div>
+
+    <div class="carousel-caption">
+      <h1>RVMD – Where Skilled Hands Meet Quality Work</h1>
+      <p>Find Experts. Get It Done..</p>
+    </div>
+  </section>
+
+  <!-- Bootstrap JS (should be just above </body>) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Counter Section -->
+  <section class="counter-section">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="counter-icon"><i class="fas fa-smile"></i></div>
+          <h2 class="counter" data-target="8000">0</h2>
+          <p>Satisfied Customers</p>
+        </div>
+        <div class="col-md-3">
+          <div class="counter-icon"><i class="fas fa-user-graduate"></i></div>
+          <h2>300+</h2>
+          <p>Skilled Professionals</p>
+        </div>
+        <div class="col-md-3">
+          <div class="counter-icon"><i class="fas fa-users"></i></div>
+          <h2>1200+</h2>
+          <p>Projects Completed</p>
+        </div>
+        <div class="col-md-3">
+          <div class="counter-icon"><i class="fas fa-calendar-alt"></i></div>
+          <h2>250+</h2>
+          <p>Ongoing Projects</p>
+        </div>
+      </div>
+    </div>
+  </section>
+    <!-- Services Section -->
+  <div class="services">
+    <h2>Our Services</h2>
+    <div class="service-cards">
+      <div class="service-card">
+        <h3>Plumber</h3>
+        <p>Expert plumbing services for all your needs.</p>
+      </div>
+      <div class="service-card">
+        <h3>Aluminum Carpenter</h3>
+        <p>Quality aluminum carpentry work.</p>
+      </div>
+      <div class="service-card">
+        <h3>Wooden Carpenter</h3>
+        <p>Custom wooden carpentry solutions.</p>
+      </div>
+      <div class="service-card">
+        <h3>Electrician</h3>
+        <p>Professional electrical services.</p>
+      </div>
+      <div class="service-card">
+        <h3>Painter</h3>
+        <p>Beautiful painting for your home.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Why Choose Us Section -->
+  <section class="why-choose-us">
+    <div class="container">
+      <h2 class="text-center mb-4">Why Choose Us?</h2>
+      <p class="text-start mb-3">
+        At RVMD, we understand the importance of finding skilled professionals who deliver quality work with precision and reliability. Our platform is designed to connect you with trusted plumbers, carpenters, electricians, painters, and interior designers—all under one roof. With a commitment to excellence and a network of verified experts, we ensure that every project is handled with care, efficiency, and expertise.</p>
+
+      <p class="text-start mb-3">
+        We believe in making your experience hassle-free, from booking to completion. Whether it’s a minor repair or a full-scale renovation, our professionals bring years of experience and dedication to every task. With transparent pricing, reliable support, and a focus on customer satisfaction, RVMD is your go-to solution for all home and office improvement needs.
+      </p>
+
+      <!-- Points with Green Ticks -->
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <ul class="why-choose-list">
+            
+            <li><span class="tick">✔️</span> <span>Affordable Prize</span></li>
+            <li><span class="tick">✔️</span> <span>Verified & Skilled Professionals</span></li>
+            <li><span class="tick">✔️</span> <span>Trusted by Hundreds of Clients</span></li>
+            <li><span class="tick">✔️</span> <span>All Services Under One Roof</span></li>
+            <li><span class="tick">✔️</span> <span>Seamless Booking & Reliable Support</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="mt-5">
+    <div class="container text-center">
+      <h2 class="fw-bold mb-5 text-success" id="say">WHAT OUR CLIENTS SAY</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+          <div class="testimonial-item">
+            <p>"RVMD made my home renovation hassle-free! From finding the perfect carpenter to hiring a skilled painter, everything was seamless. Highly recommend their reliable services!"</p>
+            <p class="fw-bold">- Smitha Rajesh</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="testimonial-item">
+            <p>"The electrician I booked through RVMD was professional and fixed all my issues quickly. The platform made it so easy to find trusted workers. Truly a lifesaver!"</p>
+            <p class="fw-bold">- Rahul.T</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="testimonial-item">
+            <p>"RVMD connected me with an amazing interior designer who transformed my space beautifully. The whole process was smooth, and the results were beyond my expectations!"</p>
+            <p class="fw-bold">- Anjali Nair</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer" style="background-color: #111; color: white; padding: 40px 0;">
+    <div class="container">
+      <h2 class="text-center text-uppercase mb-4" id="loc">Location</h2>
+
+      <div class="row align-items-center">
+        <!-- Left Side: Contact Information -->
+        <div class="col-md-6 text-md-start text-center">
+          <h4 class="fw-bold">Abso Trading Institute</h4>
+          <p class="mb-1"><i class="bi bi-telephone-inbound"></i> Paris Tower, 1st Floor</p>
+          <p class="mb-1"><i class="bi bi-envelope-fill"></i>New Bustand</p>
+          <p class="mb-1"><i class="bi bi-globe">Manjeri, Malappuram Dist</i></p>
+          <p class="mb-1"><i class="bi bi-globe">+91 85908 80080</i></p>
+          <br>
+          <a href="https://www.greenearth.com" class="text-white text-decoration-none">www.abso.in</a>
+          <br>
+        </div>
+
+        <!-- Right Side: Embedded Map -->
+        <div class="col-md-6">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3542.8075796951257!2d76.11997367452135!3d11.118605152789966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba637a43d7f2665%3A0xa378a58e2c48ad1c!2sABSO%20Trading%20Institute!5e1!3m2!1sen!2sin!4v1739953121220!5m2!1sen!2sin"
+            class="w-100 rounded shadow-sm" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+
+      <!-- Social Media & Copyright -->
+      <div class="text-center mt-4">
+        <p class="mb-2">&copy; abso@2025. All rights reserved.</p>
+        <p>Follow us on
+          <a href="https://www.facebook.com/AbsoInstitute" class="text-white text-decoration-none"><i class="bi bi-facebook"></i> Facebook</a>,
+          <a href="https://www.instagram.com/AbsoInstitute/" class="text-white text-decoration-none"><i class="bi bi-instagram"></i> Instagram</a>.
+        </p>
+      </div>
+
+      <!-- Custom Copyright & Designer Credit -->
+      <div class="text-center mt-2">
+        <p style="color: #bbb; font-size: 14px;">© Abso.2025 | Designed by Rebin</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap Script -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    var myCarousel = new bootstrap.Carousel(document.querySelector('#carouselExample'), {
+      interval: 5000,  // 5 seconds interval
+      ride: 'carousel'
+    });
+  </script>
+  <script>
+    document.querySelector('.nav-link[href="#home"]').addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent default anchor behavior
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const counters = document.querySelectorAll(".counter");
+      const speed = 100; // Adjust speed
+
+      counters.forEach(counter => {
+        const updateCount = () => {
+          const target = +counter.getAttribute("data-target");
+          const count = +counter.innerText;
+          const increment = target / speed;
+
+          if (count < target) {
+            counter.innerText = Math.ceil(count + increment);
+            setTimeout(updateCount, 10);
+          } else {
+            counter.innerText = target + "+";
+          }
+        };
+
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              updateCount();
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.5 });
+
+        observer.observe(counter);
+      });
+    });
+  </script>
+</body>
+</html>
